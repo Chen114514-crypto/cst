@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的第一个网页</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>我的个人网站</h1>
+            <ul>
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#projects">项目</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <h2>欢迎来到我的网站</h2>
+            <p>这是我用HTML和CSS创建的第一个网页</p>
+            <button onclick="sayHello()">点击打招呼</button>
+        </section>
+
+        <section id="about">
+            <h2>关于我</h2>
+            <div class="about-content">
+                <img src="https://via.placeholder.com/200x200" alt="个人照片">
+                <div class="about-text">
+                    <p>你好！我是一个正在学习网页开发的初学者。</p>
+                    <p>我对编程很感兴趣，希望能创建更多有趣的网站。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>我的项目</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>项目一</h3>
+                    <p>这是我的第一个网页项目</p>
+                </div>
+                <div class="project-card">
+                    <h3>项目二</h3>
+                    <p>未来我会添加更多项目</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>联系我</h2>
+            <form>
+                <input type="text" placeholder="你的姓名" required>
+                <input type="email" placeholder="你的邮箱" required>
+                <textarea placeholder="留言内容" rows="5" required></textarea>
+                <button type="submit">发送消息</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 我的网站. 版权所有.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
