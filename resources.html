@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学建模资料 - 数学建模</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .back-btn {
+            background: linear-gradient(45deg, #8e44ad, #3498db);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        h1 { 
+            color: #fff; 
+            text-align: center;
+            font-size: 2.5rem; 
+            margin-bottom: 30px;
+        }
+        h2 { 
+            color: #fff; 
+            font-size: 1.8rem; 
+            margin: 30px 0 20px 0;
+            text-align: center;
+        }
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .resource-card {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+        .resource-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .card-desc {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        .resource-list {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .resource-item {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            transition: all 0.3s;
+        }
+        .resource-item:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateX(5px);
+        }
+        .item-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        .item-desc {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        .highlight-section {
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="math-modeling.html" class="back-btn">← 返回数学建模中心</a>
+        
+        <h1>📚 数学建模资料库</h1>
+        <p style="text-align: center; font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9;">
+            精心整理的数学建模学习资源，助你建模路上更进一步
+        </p>
+        
+        <div class="resource-grid">
+            <div class="resource-card">
+                <div class="card-icon">🎯</div>
+                <div class="card-title">20个最常用模型整理的美赛论文</div>
+                <div class="card-desc">精选美国大学生数学建模竞赛中最常用的20种经典模型，包含详细解析和应用实例</div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="card-icon">🏆</div>
+                <div class="card-title">36个模型整理的国内比赛论文</div>
+                <div class="card-desc">涵盖全国大学生数学建模竞赛中的36种核心模型，理论与实践相结合</div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="card-icon">🔬</div>
+                <div class="card-title">40个最常用模型整理的研赛论文</div>
+                <div class="card-desc">研究生数学建模竞赛中的40个高级模型，深入探讨复杂问题的建模方法</div>
+            </div>
+        </div>
+        
+        <div class="highlight-section">
+            <h2>📖 核心教程资料</h2>
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <div class="card-icon">💻</div>
+                    <div class="card-title">MATLAB教程新手入门篇</div>
+                    <div class="card-desc">从零开始学习MATLAB，掌握数学建模必备工具</div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="card-icon">📄</div>
+                    <div class="card-title">论文排版指南</div>
+                    <div class="card-desc">专业的数学建模论文写作和排版技巧</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="resource-list">
+            <h2>🏅 竞赛获奖论文集</h2>
+            <div class="resource-item">
+                <div class="item-title">全国大学生统计建模大赛获奖论文集</div>
+                <div class="item-desc">收录历年统计建模竞赛的优秀获奖作品，展现统计方法在实际问题中的应用</div>
+            </div>
+            <div class="resource-item">
+                <div class="item-title">国际大学生数学建模竞赛获奖论文</div>
+                <div class="item-desc">MCM/ICM竞赛中的Outstanding和Meritorious获奖论文精选</div>
+            </div>
+            <div class="resource-item">
+                <div class="item-title">全国研究生数学建模竞赛获奖论文</div>
+                <div class="item-desc">研究生层面的高水平建模论文，问题复杂度和解决方案都更加深入</div>
+            </div>
+        </div>
+        
+        <div class="resource-list">
+            <h2>💾 实用工具与代码</h2>
+            <div class="resource-item">
+                <div class="item-title">视频配套所有课件和代码</div>
+                <div class="item-desc">完整的教学视频配套材料，包含所有算法的源代码和详细注释</div>
+            </div>
+            <div class="resource-item">
+                <div class="item-title">常用算法模板库</div>
+                <div class="item-desc">线性规划、整数规划、遗传算法、神经网络等经典算法的MATLAB和Python实现</div>
+            </div>
+            <div class="resource-item">
+                <div class="item-title">数据预处理工具包</div>
+                <div class="item-desc">数据清洗、特征工程、可视化等实用工具集合</div>
+            </div>
+        </div>
+        
+        <div class="resource-list">
+            <h2>📊 历届优秀作品</h2>
+            <div class="resource-item">
+                <div class="item-title">数模往届优秀论文</div>
+                <div class="item-desc">精选历年来各大竞赛的优秀论文，学习成功经验和写作技巧</div>
+            </div>
+            <div class="resource-item">
+                <div class="item-title">论文写作范例集</div>
+                <div class="item-desc">从摘要到结论的完整写作示例，规范的格式和严谨的逻辑</div>
+            </div>
+            <div class="resource-item">
+                <div class="item-title">答辩PPT模板</div>
+                <div class="item-desc">专业的数学建模竞赛答辩演示文稿模板和技巧</div>
+            </div>
+        </div>
+        
+        <div class="resource-list">
+            <h2>🔧 专业技能提升</h2>
+            <div class="resource-item">
+                <div class="item-title">数学建模相关资料</div>
+                <div class="item-desc">涵盖概率统计、运筹学、数值分析等相关学科的学习资料</div>
+            </div>
+            <div class="resource-item">
+                <div class="item-title">前沿算法研究</div>
+                <div class="item-desc">机器学习、深度学习在数学建模中的最新应用</div>
+            </div>
+            <div class="resource-item">
+                <div class="item-title">实战案例分析</div>
+                <div class="item-desc">真实企业问题的建模解决方案，理论联系实际</div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; padding: 25px; background: rgba(255,255,255,0.1); border-radius: 15px;">
+            <p style="font-style: italic; font-size: 1.2rem; margin-bottom: 10px;">"资料再多，不如动手实践一次"</p>
+            <p style="font-size: 1rem; opacity: 0.8;">理论学习 + 实践训练 = 建模高手</p>
+        </div>
+    </div>
+</body>
+</html>
