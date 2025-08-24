@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学建模 - 我的网站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        h1 { color: #f39c12; text-align: center; margin-bottom: 30px; }
+        h2 { color: #e74c3c; margin-top: 30px; }
+        .back-btn {
+            background: linear-gradient(45deg, #8e44ad, #3498db);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .model-card {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #f39c12;
+        }
+        .formula {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">← 返回首页</a>
+        
+        <h1>📊 数学建模世界</h1>
+        <p style="text-align: center; font-size: 18px; margin-bottom: 40px;">
+            用数学语言描述现实世界，用模型解决实际问题
+        </p>
+        
+        <h2>🎯 什么是数学建模？</h2>
+        <p>数学建模是利用数学方法解决实际问题的过程。它包括建立数学模型、求解模型和验证结果三个主要步骤。</p>
+        
+        <div class="model-card">
+            <h3>📈 线性规划模型</h3>
+            <p>用于解决资源优化分配问题</p>
+            <div class="formula">
+                目标函数：max Z = c₁x₁ + c₂x₂ + ... + cₙxₙ<br>
+                约束条件：Ax ≤ b, x ≥ 0
+            </div>
+        </div>
+        
+        <div class="model-card">
+            <h3>📊 概率统计模型</h3>
+            <p>用于数据分析和预测</p>
+            <div class="formula">
+                正态分布：f(x) = (1/√(2πσ²)) × e^(-(x-μ)²/(2σ²))
+            </div>
+        </div>
+        
+        <div class="model-card">
+            <h3>🔄 微分方程模型</h3>
+            <p>描述变化率和增长过程</p>
+            <div class="formula">
+                人口增长模型：dP/dt = rP(1 - P/K)
+            </div>
+        </div>
+        
+        <h2>🏆 数学建模竞赛</h2>
+        <p>参加数学建模竞赛可以提升问题解决能力和团队合作精神：</p>
+        <ul>
+            <li>全国大学生数学建模竞赛</li>
+            <li>美国大学生数学建模竞赛（MCM/ICM）</li>
+            <li>华为杯数学建模竞赛</li>
+        </ul>
+        
+        <h2>🛠️ 常用工具</h2>
+        <p>数学建模常用的软件和编程语言：</p>
+        <ul>
+            <li><strong>MATLAB</strong> - 数值计算和仿真</li>
+            <li><strong>Python</strong> - 数据分析和机器学习</li>
+            <li><strong>R</strong> - 统计分析</li>
+            <li><strong>Mathematica</strong> - 符号计算</li>
+        </ul>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <p style="font-style: italic;">数学是科学的语言，建模是解决问题的桥梁</p>
+        </div>
+    </div>
+</body>
+</html>
