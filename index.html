@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CST的网页专区</title>
+    <title>CST的专属网页</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -69,15 +69,51 @@
             opacity: 0.7;
             margin: 10px 0;
         }
+
+        /* 成就展示区域 */
+        .achievements-section {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        .achievement-item {
+            background: rgba(255,215,0,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #ffd700;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .achievement-icon {
+            font-size: 2rem;
+        }
+        .achievement-text {
+            flex: 1;
+        }
+        .achievement-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .achievement-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        .no-achievements {
+            text-align: center;
+            opacity: 0.7;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🎉 欢迎来到我的网站！</h1>
+        <p>🌐 网址：https://chen114514-crypto.github.io/cst/</p>
         
-        <div class="button-group">
-            <button class="btn btn-success" onclick="alert('奶龙来喽！')">点击庆祝</button>
-        </div>
         
         <hr style="margin: 30px 0; border: 1px solid rgba(255,255,255,0.3);">
         
@@ -91,11 +127,64 @@
         <p style="font-size: 14px; opacity: 0.8;">探索数学建模的奥秘，解决实际问题</p>
         
         <hr style="margin: 30px 0; border: 1px solid rgba(255,255,255,0.3);">
+
+        <!-- 成就展示区域 -->
+        <div class="achievements-section">
+            <h2>🏆 我的成就</h2>
+            <div id="achievementsList">
+                <div class="no-achievements">暂无解锁的成就，快去探索吧！</div>
+            </div>
+        </div>
         
-        <h2>✨ 成就解锁</h2>
+        <hr style="margin: 30px 0; border: 1px solid rgba(255,255,255,0.3);">
+        
+        <h2>✨ 网站功能</h2>
         <p>✅ 登录奶龙的网站</p>
     </div>
+
+    <script>
+        // 页面加载时检查成就
+        window.onload = function() {
+            updateAchievements();
+        }
+
+        function updateAchievements() {
+            const achievementsList = document.getElementById('achievementsList');
+            
+            // 检查是否有下载奶龙文件的成就
+            const hasDragonAchievement = localStorage.getItem('dragonDownloadAchievement') === 'true';
+            
+            let achievementsHTML = '';
+            
+            // 登录网站成就（默认解锁）
+            achievementsHTML += `
+                <div class="achievement-item">
+                    <div class="achievement-icon">🐲</div>
+                    <div class="achievement-text">
+                        <div class="achievement-title">登录奶龙的网站</div>
+                        <div class="achievement-desc">欢迎来到奶龙的小窝！你是第一位访客呢~</div>
+                    </div>
+                </div>
+            `;
+            
+            // 下载文件成就（如果已解锁）
+            if (hasDragonAchievement) {
+                achievementsHTML += `
+                    <div class="achievement-item">
+                        <div class="achievement-icon">📥</div>
+                        <div class="achievement-text">
+                            <div class="achievement-title">下载奶龙的文件</div>
+                            <div class="achievement-desc">你成功下载了数学建模资料！奶龙很开心~</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            achievementsList.innerHTML = achievementsHTML;
+        }
+
+        // 每隔1秒检查一次成就更新（用于从其他页面返回时更新）
+        setInterval(updateAchievements, 1000);
+    </script>
 </body>
 </html>
-
-
