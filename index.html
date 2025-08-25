@@ -39,13 +39,8 @@
         }
         
         /* 庆祝按钮 */
-        .btn-success {
-            background: #4CAF50;
-        }
-        .btn-success:hover { 
-            background: #45a049; 
-            transform: translateY(-2px);
-        }
+        .btn-success { background: #4CAF50; }
+        .btn-success:hover { background: #45a049; transform: translateY(-2px); }
         
         /* 数学建模按钮 */
         .btn-math {
@@ -59,16 +54,10 @@
         }
         
         /* 按钮容器 */
-        .button-group {
-            margin: 30px 0;
-        }
+        .button-group { margin: 30px 0; }
         
         /* 数学符号装饰 */
-        .math-symbols {
-            font-size: 20px;
-            opacity: 0.7;
-            margin: 10px 0;
-        }
+        .math-symbols { font-size: 20px; opacity: 0.7; margin: 10px 0; }
 
         /* 成就展示区域 */
         .achievements-section {
@@ -88,25 +77,11 @@
             align-items: center;
             gap: 15px;
         }
-        .achievement-icon {
-            font-size: 2rem;
-        }
-        .achievement-text {
-            flex: 1;
-        }
-        .achievement-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .achievement-desc {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        .no-achievements {
-            text-align: center;
-            opacity: 0.7;
-            font-style: italic;
-        }
+        .achievement-icon { font-size: 2rem; }
+        .achievement-text { flex: 1; }
+        .achievement-title { font-weight: bold; margin-bottom: 5px; }
+        .achievement-desc { font-size: 0.9rem; opacity: 0.8; }
+        .no-achievements { text-align: center; opacity: 0.7; font-style: italic; }
     </style>
 </head>
 <body>
@@ -114,15 +89,12 @@
         <h1>🎉 欢迎来到我的网站！</h1>
         <p>🌐 网址：https://chen114514-crypto.github.io/cst/</p>
         
-        
         <hr style="margin: 30px 0; border: 1px solid rgba(255,255,255,0.3);">
         
         <h2>📚 学习专区</h2>
         <div class="math-symbols">∫ ∑ ∆ π ∞ ≈ ≤ ≥</div>
         <div class="button-group">
-            <a href="math-modeling.html" class="btn btn-math" target="_blank">
-                📊 进入数学建模
-            </a>
+            <a href="math-modeling.html" class="btn btn-math" target="_blank">📊 进入数学建模</a>
         </div>
         <p style="font-size: 14px; opacity: 0.8;">探索数学建模的奥秘，解决实际问题</p>
         
@@ -143,20 +115,29 @@
     </div>
 
     <script>
-        // 页面加载时检查成就
-        window.onload = function() {
-            updateAchievements();
+        // —— 成就 Key（与资源页/论文页保持一致）——
+        const ACH_FILE_NEW = 'dragonDownloadAchievementShown';   // 资源页：首次下载资料
+        const ACH_FILE_OLD = 'dragonDownloadAchievement';        // 旧版本兼容
+        const ACH_PAPER    = 'dragonPaperAchievementShown';      // 论文页：点击论文
+
+        // 页面加载/轮询时刷新成就展示
+        window.onload = function () { updateAchievements(); };
+
+        function hasFileAchievement() {
+            return localStorage.getItem(ACH_FILE_NEW) === '1'
+                || localStorage.getItem(ACH_FILE_NEW) === 'true'
+                || localStorage.getItem(ACH_FILE_OLD) === 'true'; // 兼容老键
+        }
+        function hasPaperAchievement() {
+            return localStorage.getItem(ACH_PAPER) === '1'
+                || localStorage.getItem(ACH_PAPER) === 'true';
         }
 
         function updateAchievements() {
             const achievementsList = document.getElementById('achievementsList');
-            
-            // 检查是否有下载奶龙文件的成就
-            const hasDragonAchievement = localStorage.getItem('dragonDownloadAchievement') === 'true';
-            
             let achievementsHTML = '';
-            
-            // 登录网站成就（默认解锁）
+
+            // 永久：登录网站
             achievementsHTML += `
                 <div class="achievement-item">
                     <div class="achievement-icon">✨</div>
@@ -166,9 +147,9 @@
                     </div>
                 </div>
             `;
-            
-            // 下载文件成就（如果已解锁）
-            if (hasDragonAchievement) {
+
+            // 下载资料成就（来自 resources.html）
+            if (hasFileAchievement()) {
                 achievementsHTML += `
                     <div class="achievement-item">
                         <div class="achievement-icon">📥</div>
@@ -179,14 +160,25 @@
                     </div>
                 `;
             }
-            
+
+            // 下载论文成就（来自 papers.html）
+            if (hasPaperAchievement()) {
+                achievementsHTML += `
+                    <div class="achievement-item">
+                        <div class="achievement-icon">📝</div>
+                        <div class="achievement-text">
+                            <div class="achievement-title">下载奶龙的论文</div>
+                            <div class="achievement-desc">你查看/下载了论文模块内容，继续加油！</div>
+                        </div>
+                    </div>
+                `;
+            }
+
             achievementsList.innerHTML = achievementsHTML;
         }
 
-        // 每隔1秒检查一次成就更新（用于从其他页面返回时更新）
+        // 从其他页面返回后自动刷新（每秒检查一次）
         setInterval(updateAchievements, 1000);
     </script>
 </body>
 </html>
-
-
