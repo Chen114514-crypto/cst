@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>我的论文 - 数学建模</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+      color: white;
+      min-height: 100vh;
+    }
+    .container {
+      background: rgba(255,255,255,0.1);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    .back-btn {
+      background: linear-gradient(45deg, #8e44ad, #3498db);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 30px;
+      transition: all 0.3s;
+    }
+    .back-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    h1 {
+      color: #f39c12;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.4rem;
+    }
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin: 30px 0 10px;
+    }
+    .nav-card {
+      background: rgba(255,255,255,0.06);
+      padding: 28px;
+      border-radius: 18px;
+      text-align: center;
+      transition: all 0.3s;
+      text-decoration: none;
+      color: white;
+      display: block;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+    .nav-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+    }
+    .card-icon { font-size: 2.6rem; margin-bottom: 12px; }
+    .card-title { font-size: 1.35rem; font-weight: bold; margin-bottom: 8px; }
+    .card-desc { font-size: 0.98rem; opacity: 0.92; }
+
+    /* 两个模块的区分色 */
+    .card-green { border: 2px solid #27ae60; background: linear-gradient(135deg, rgba(39,174,96,.25), rgba(46,204,113,.25)); }
+    .card-green:hover { background: linear-gradient(135deg, rgba(39,174,96,.35), rgba(46,204,113,.35)); }
+    .card-red   { border: 2px solid #e74c3c; background: linear-gradient(135deg, rgba(231,76,60,.25), rgba(192,57,43,.25)); }
+    .card-red:hover { background: linear-gradient(135deg, rgba(231,76,60,.35), rgba(192,57,43,.35)); }
+
+    /* 成就弹窗 */
+    .popup-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 999; opacity: 0; visibility: hidden; transition: all .25s;
+    }
+    .popup-overlay.show { opacity: 1; visibility: visible; }
+    .achievement-popup {
+      position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%,-50%) scale(0.9);
+      background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+      color: #fff; padding: 36px; border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      z-index: 1000; text-align: center; max-width: 420px; width: 92%;
+      transition: transform .25s ease, opacity .25s ease;
+      opacity: 0;
+    }
+    .achievement-popup.show { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+    .achievement-title { font-size: 1.6rem; font-weight: bold; margin-bottom: 12px; }
+    .achievement-desc  { font-size: 1.05rem; opacity: .95; margin-bottom: 18px; }
+    .achievement-close {
+      background: rgba(255,255,255,0.2);
+      color: white; padding: 10px 18px; border: none; border-radius: 8px;
+      cursor: pointer; font-size: 1rem; transition: all .25s;
+    }
+    .achievement-close:hover { background: rgba(255,255,255,0.3); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="math-modeling.html" class="back-btn">← 返回数学建模中心</a>
+    <h1>📝 我的论文</h1>
+
+    <div class="nav-grid">
+      <!-- 模块 1：国赛校赛二等奖A题 -->
+      <a class="nav-card card-green"
+         href="javascript:void(0)"
+         onclick="openAndAchieve('PAPER_URL_1')">
+        <div class="card-icon">🥈</div>
+        <div class="card-title">国赛校赛二等奖 A 题</div>
+        <div class="card-desc">参赛论文与代码</div>
+      </a>
+
+      <!-- 模块 2：国赛火花杯一等奖A题 -->
+      <a class="nav-card card-red"
+         href="javascript:void(0)"
+         onclick="openAndAchieve('PAPER_URL_2')">
+        <div class="card-icon">🏆</div>
+        <div class="card-title">国赛火花杯一等奖 A 题</div>
+        <div class="card-desc">参赛论文与代码</div>
+      </a>
+    </div>
+
+    <div style="text-align:center; margin-top:28px; opacity:.9;">
+      <small>提示：点击任意模块将跳转到论文链接。</small>
+    </div>
+  </div>
+
+  <!-- 成就弹窗 -->
+  <div class="popup-overlay" id="popupOverlay"></div>
+  <div class="achievement-popup" id="achievementPopup">
+    <div class="achievement-title">成就达成！</div>
+    <div class="achievement-desc">恭喜你获得成就：下载奶龙的论文</div>
+    <button class="achievement-close" onclick="closeAchievement()">确定</button>
+  </div>
+
+  <script>
+    // 替换成真实论文下载链接
+    const PAPER_URL_1 = 'https://example.com/path/to/your/paper-A2.zip';
+    const PAPER_URL_2 = 'https://example.com/path/to/your/paper-A1.zip';
+
+    const ACH_KEY = 'dragonPaperAchievementShown';
+    const useOnce = false; // 如果想让弹窗只提示一次，改成 true
+
+    function openAndAchieve(urlKey) {
+      const url = (urlKey === 'PAPER_URL_1') ? PAPER_URL_1 : PAPER_URL_2;
+
+      // 打开论文链接
+      window.open(url, '_blank');
+
+      // ✅ 标记论文成就（首页会根据这个显示成就）
+      localStorage.setItem(ACH_KEY, '1');
+
+      // 弹窗逻辑
+      if (useOnce) {
+        const firstTime = !localStorage.getItem('popupShown');
+        if (firstTime) {
+          showAchievement();
+          localStorage.setItem('popupShown', '1');
+        }
+      } else {
+        showAchievement();
+      }
+    }
+
+    function showAchievement() {
+      document.getElementById('popupOverlay').classList.add('show');
+      document.getElementById('achievementPopup').classList.add('show');
+    }
+    function closeAchievement() {
+      document.getElementById('popupOverlay').classList.remove('show');
+      document.getElementById('achievementPopup').classList.remove('show');
+    }
+    document.getElementById('popupOverlay').addEventListener('click', closeAchievement);
+  </script>
+</body>
+</html>
