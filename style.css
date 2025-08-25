@@ -1,201 +1,132 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    color: #333;
-}
-
-/* 导航栏样式 */
-header {
-    background: #2c3e50;
-    color: white;
-    padding: 1rem 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
+    font-family: Arial, sans-serif;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0 2rem;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-}
-
-nav ul li {
-    margin-left: 2rem;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-nav ul li a:hover {
-    color: #3498db;
-}
-
-/* 主要内容样式 */
-main {
-    margin-top: 80px;
-}
-
-section {
-    padding: 4rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.hero {
+    padding: 40px 20px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     text-align: center;
-    padding: 6rem 2rem;
+    min-height: 100vh;
 }
-
-.hero h2 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+.container {
+    background: rgba(255,255,255,0.1);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
 }
+h1 { color: #ffeb3b; margin-bottom: 20px; }
 
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-}
-
-.hero button {
-    background: #3498db;
+/* 按钮通用样式 */
+.btn {
     color: white;
+    padding: 15px 30px;
     border: none;
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-    border-radius: 5px;
+    border-radius: 10px;
+    font-size: 16px;
     cursor: pointer;
-    transition: background 0.3s;
+    margin: 10px;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
 }
 
-.hero button:hover {
-    background: #2980b9;
+/* 庆祝按钮 */
+.btn-success { background: #4CAF50; }
+.btn-success:hover { background: #45a049; transform: translateY(-2px); }
+
+/* 数学建模按钮 */
+.btn-math {
+    background: linear-gradient(45deg, #ff6b6b, #ffa500);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+.btn-math:hover {
+    background: linear-gradient(45deg, #ff5252, #ff9800);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
 }
 
-/* 关于我部分 */
-.about-content {
+/* 按钮容器使用弹性布局 */
+.button-group {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* 游戏按钮统一设置 */
+.btn-game,
+.btn-chess {
+    flex: 0 0 200px; /* 固定宽度，不伸缩 */
+    text-align: center;
+    box-sizing: border-box;
+    margin: 0; /* 移除默认margin，使用gap代替 */
+}
+
+/* 贪吃蛇游戏按钮 */
+.btn-game {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+}
+.btn-game:hover {
+    background: linear-gradient(45deg, #42b8b1, #3d8b7f);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+}
+
+/* 国际象棋按钮 */
+.btn-chess {
+    background: linear-gradient(45deg, #8e24aa, #5e35b1);
+    box-shadow: 0 4px 15px rgba(142, 36, 170, 0.3);
+}
+.btn-chess:hover {
+    background: linear-gradient(45deg, #7b1fa2, #512da8);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(142, 36, 170, 0.4);
+}
+
+/* 数学符号装饰 */
+.math-symbols { font-size: 20px; opacity: 0.7; margin: 10px 0; }
+
+/* 游戏符号装饰 */
+.game-symbols { font-size: 20px; opacity: 0.7; margin: 10px 0; }
+
+/* 成就展示区域 */
+.achievements-section {
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 30px 0;
+}
+.achievement-item {
+    background: rgba(255,215,0,0.2);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+    border-left: 4px solid #ffd700;
+    text-align: left;
     display: flex;
     align-items: center;
-    gap: 3rem;
-    margin-top: 2rem;
+    gap: 15px;
 }
+.achievement-icon { font-size: 2rem; }
+.achievement-text { flex: 1; }
+.achievement-title { font-weight: bold; margin-bottom: 5px; }
+.achievement-desc { font-size: 0.9rem; opacity: 0.8; }
+.no-achievements { text-align: center; opacity: 0.7; font-style: italic; }
 
-.about-content img {
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
-}
-
-.about-text {
-    flex: 1;
-}
-
-.about-text p {
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-}
-
-/* 项目部分 */
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.project-card {
-    background: #f8f9fa;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
-}
-
-.project-card:hover {
-    transform: translateY(-5px);
-}
-
-.project-card h3 {
-    color: #2c3e50;
-    margin-bottom: 1rem;
-}
-
-/* 联系表单 */
-form {
-    max-width: 600px;
-    margin: 2rem auto;
-}
-
-form input,
-form textarea {
-    width: 100%;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
-form button {
-    background: #27ae60;
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: background 0.3s;
-}
-
-form button:hover {
-    background: #219a52;
-}
-
-/* 底部样式 */
-footer {
-    background: #2c3e50;
-    color: white;
-    text-align: center;
-    padding: 2rem;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-    nav {
+/* 移动端适配 */
+@media (max-width: 600px) {
+    .button-group {
         flex-direction: column;
-        gap: 1rem;
+        align-items: center;
+        gap: 15px;
     }
     
-    nav ul {
-        gap: 1rem;
-    }
-    
-    .hero h2 {
-        font-size: 2rem;
-    }
-    
-    .about-content {
-        flex-direction: column;
-        text-align: center;
+    .btn-game,
+    .btn-chess {
+        flex: 0 0 180px;
+        width: 180px;
     }
 }
