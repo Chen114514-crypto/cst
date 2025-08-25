@@ -58,11 +58,51 @@
             box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
         }
         
-        /* 按钮容器 */
-        .button-group { margin: 30px 0; }
+        /* 按钮容器使用弹性布局 */
+        .button-group {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        /* 游戏按钮统一设置 */
+        .btn-game,
+        .btn-chess {
+            flex: 0 0 200px; /* 固定宽度，不伸缩 */
+            text-align: center;
+            box-sizing: border-box;
+            margin: 0; /* 移除默认margin，使用gap代替 */
+        }
+        
+        /* 贪吃蛇游戏按钮 */
+        .btn-game {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+        .btn-game:hover {
+            background: linear-gradient(45deg, #42b8b1, #3d8b7f);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+        }
+        
+        /* 国际象棋按钮 */
+        .btn-chess {
+            background: linear-gradient(45deg, #8e24aa, #5e35b1);
+            box-shadow: 0 4px 15px rgba(142, 36, 170, 0.3);
+        }
+        .btn-chess:hover {
+            background: linear-gradient(45deg, #7b1fa2, #512da8);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(142, 36, 170, 0.4);
+        }
         
         /* 数学符号装饰 */
         .math-symbols { font-size: 20px; opacity: 0.7; margin: 10px 0; }
+        
+        /* 游戏符号装饰 */
+        .game-symbols { font-size: 20px; opacity: 0.7; margin: 10px 0; }
 
         /* 成就展示区域 */
         .achievements-section {
@@ -87,6 +127,21 @@
         .achievement-title { font-weight: bold; margin-bottom: 5px; }
         .achievement-desc { font-size: 0.9rem; opacity: 0.8; }
         .no-achievements { text-align: center; opacity: 0.7; font-style: italic; }
+        
+        /* 移动端适配 */
+        @media (max-width: 600px) {
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .btn-game,
+            .btn-chess {
+                flex: 0 0 180px;
+                width: 180px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -102,6 +157,15 @@
             <a href="math-modeling.html" class="btn btn-math" target="_blank">📊 进入数学建模</a>
         </div>
         
+        <hr style="margin: 30px 0; border: 1px solid rgba(255,255,255,0.3);">
+        
+        <h2>🎮 游戏专区</h2>
+        <div class="game-symbols">🐍 🎲 🎯 🏆 ⚡ 🎨 🎪 🎊</div>
+        <div class="button-group">
+            <a href="snake-game.html" class="btn btn-game" target="_blank">🐍 贪吃蛇大作战</a>
+            <a href="chess-game.html" class="btn btn-chess" target="_blank">♔ 国际象棋对战</a>
+        </div>
+
         <hr style="margin: 30px 0; border: 1px solid rgba(255,255,255,0.3);">
 
         <!-- 成就展示区域 -->
@@ -123,6 +187,10 @@
         const ACH_FILE_NEW = 'dragonDownloadAchievementShown';   // 资源页：首次下载资料
         const ACH_FILE_OLD = 'dragonDownloadAchievement';        // 旧版本兼容
         const ACH_PAPER    = 'dragonPaperAchievementShown';      // 论文页：点击论文
+        const ACH_SNAKE_PLAY = 'dragonSnakePlayAchievementShown'; // 贪吃蛇：开始游戏
+        const ACH_SNAKE_SCORE = 'dragonSnakeScoreAchievementShown'; // 贪吃蛇：达到一定分数
+        const ACH_CHESS_PLAY = 'dragonChessPlayAchievementShown'; // 国际象棋：开始游戏
+        const ACH_CHESS_WIN = 'dragonChessWinAchievementShown';   // 国际象棋：获得胜利
 
         // 页面加载/轮询时刷新成就展示
         window.onload = function () { updateAchievements(); };
@@ -135,6 +203,22 @@
         function hasPaperAchievement() {
             return localStorage.getItem(ACH_PAPER) === '1'
                 || localStorage.getItem(ACH_PAPER) === 'true';
+        }
+        function hasSnakePlayAchievement() {
+            return localStorage.getItem(ACH_SNAKE_PLAY) === '1'
+                || localStorage.getItem(ACH_SNAKE_PLAY) === 'true';
+        }
+        function hasSnakeScoreAchievement() {
+            return localStorage.getItem(ACH_SNAKE_SCORE) === '1'
+                || localStorage.getItem(ACH_SNAKE_SCORE) === 'true';
+        }
+        function hasChessPlayAchievement() {
+            return localStorage.getItem(ACH_CHESS_PLAY) === '1'
+                || localStorage.getItem(ACH_CHESS_PLAY) === 'true';
+        }
+        function hasChessWinAchievement() {
+            return localStorage.getItem(ACH_CHESS_WIN) === '1'
+                || localStorage.getItem(ACH_CHESS_WIN) === 'true';
         }
 
         function updateAchievements() {
@@ -178,7 +262,62 @@
                 `;
             }
 
-            achievementsList.innerHTML = achievementsHTML;
+            // 贪吃蛇游戏成就
+            if (hasSnakePlayAchievement()) {
+                achievementsHTML += `
+                    <div class="achievement-item">
+                        <div class="achievement-icon">🐍</div>
+                        <div class="achievement-text">
+                            <div class="achievement-title">贪吃蛇初体验</div>
+                            <div class="achievement-desc">你开始了第一局贪吃蛇游戏！</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (hasSnakeScoreAchievement()) {
+                achievementsHTML += `
+                    <div class="achievement-item">
+                        <div class="achievement-icon">🏆</div>
+                        <div class="achievement-text">
+                            <div class="achievement-title">贪吃蛇高手</div>
+                            <div class="achievement-desc">你在贪吃蛇游戏中达到了500分以上！真正的高手！</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 国际象棋游戏成就
+            if (hasChessPlayAchievement()) {
+                achievementsHTML += `
+                    <div class="achievement-item">
+                        <div class="achievement-icon">♔</div>
+                        <div class="achievement-text">
+                            <div class="achievement-title">象棋初体验</div>
+                            <div class="achievement-desc">你开始了第一局国际象棋对战游戏！</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (hasChessWinAchievement()) {
+                achievementsHTML += `
+                    <div class="achievement-item">
+                        <div class="achievement-icon">🏆</div>
+                        <div class="achievement-text">
+                            <div class="achievement-title">象棋大师</div>
+                            <div class="achievement-desc">你赢得了一局国际象棋对战！真正的战略家！</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 如果没有任何成就（除了默认的登录成就），显示提示
+            if (achievementsHTML.includes('暂无解锁的成就')) {
+                achievementsList.innerHTML = '<div class="no-achievements">暂无解锁的成就，快去探索吧！</div>';
+            } else {
+                achievementsList.innerHTML = achievementsHTML;
+            }
         }
 
         // 从其他页面返回后自动刷新（每秒检查一次）
@@ -186,5 +325,3 @@
     </script>
 </body>
 </html>
-
-
