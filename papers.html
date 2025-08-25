@@ -66,7 +66,6 @@
     .card-title { font-size: 1.35rem; font-weight: bold; margin-bottom: 8px; }
     .card-desc { font-size: 0.98rem; opacity: 0.92; }
 
-    /* 两个模块的区分色 */
     .card-green { border: 2px solid #27ae60; background: linear-gradient(135deg, rgba(39,174,96,.25), rgba(46,204,113,.25)); }
     .card-green:hover { background: linear-gradient(135deg, rgba(39,174,96,.35), rgba(46,204,113,.35)); }
     .card-red   { border: 2px solid #e74c3c; background: linear-gradient(135deg, rgba(231,76,60,.25), rgba(192,57,43,.25)); }
@@ -106,22 +105,22 @@
     <h1>📝 我的论文</h1>
 
     <div class="nav-grid">
-      <!-- 模块 1：国赛校赛二等奖A题 -->
+      <!-- 校赛二等奖 A 题 -->
       <a class="nav-card card-green"
          href="javascript:void(0)"
-         onclick="openAndAchieve('PAPER_URL_1')">
+         onclick="openAndAchieve('F031.B.pdf')">
         <div class="card-icon">🥈</div>
-        <div class="card-title">国赛校赛二等奖 A 题</div>
-        <div class="card-desc">参赛论文与代码</div>
+        <div class="card-title">国赛校赛B题二等奖</div>
+        <div class="card-desc">参赛论文与代码、数据与说明文档</div>
       </a>
 
-      <!-- 模块 2：国赛火花杯一等奖A题 -->
+      <!-- 火花杯一等奖 A 题 -->
       <a class="nav-card card-red"
          href="javascript:void(0)"
-         onclick="openAndAchieve('PAPER_URL_2')">
+         onclick="openAndAchieve('A.pdf')">
         <div class="card-icon">🏆</div>
-        <div class="card-title">国赛火花杯一等奖 A 题</div>
-        <div class="card-desc">参赛论文与代码</div>
+        <div class="card-title">国赛火花杯A题一等奖</div>
+        <div class="card-desc">完整论文、附件与可复现实验材料</div>
       </a>
     </div>
 
@@ -139,31 +138,20 @@
   </div>
 
   <script>
-    // 替换成真实论文下载链接
-    const PAPER_URL_1 = 'https://example.com/path/to/your/paper-A2.zip';
-    const PAPER_URL_2 = 'https://example.com/path/to/your/paper-A1.zip';
+    const RELEASE_TAG = 'v2025-08-25-11-31';
+    const BASE_URL = `https://github.com/Chen114514-crypto/cst/releases/download/${RELEASE_TAG}/`;
 
     const ACH_KEY = 'dragonPaperAchievementShown';
-    const useOnce = false; // 如果想让弹窗只提示一次，改成 true
+    const useOnce = true; // 只首次提示
 
-    function openAndAchieve(urlKey) {
-      const url = (urlKey === 'PAPER_URL_1') ? PAPER_URL_1 : PAPER_URL_2;
-
-      // 打开论文链接
+    function openAndAchieve(filename) {
+      const url = BASE_URL + encodeURIComponent(filename);
       window.open(url, '_blank');
 
-      // ✅ 标记论文成就（首页会根据这个显示成就）
-      localStorage.setItem(ACH_KEY, '1');
-
-      // 弹窗逻辑
-      if (useOnce) {
-        const firstTime = !localStorage.getItem('popupShown');
-        if (firstTime) {
-          showAchievement();
-          localStorage.setItem('popupShown', '1');
-        }
-      } else {
+      const firstTime = !localStorage.getItem(ACH_KEY);
+      if (firstTime || !useOnce) {
         showAchievement();
+        localStorage.setItem(ACH_KEY, '1');
       }
     }
 
