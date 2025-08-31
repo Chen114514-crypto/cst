@@ -385,13 +385,16 @@
             font-weight: 300;
         }
 
+        /* 修正升变棋子水平排列问题 */
         .promotion-pieces {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: center !important;
+            align-items: center !important;
             gap: 25px;
-            justify-content: center;
             margin: 0 auto;
             max-width: 600px;
+            width: 100%;
         }
 
         .promotion-piece {
@@ -407,6 +410,9 @@
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(10px);
+            flex: 0 0 auto !important;
+            min-width: 120px !important;
+            max-width: 150px !important;
         }
 
         .promotion-piece::before {
@@ -437,6 +443,29 @@
 
         .promotion-piece:active {
             transform: scale(0.95);
+        }
+
+        /* 升变棋子颜色对应 */
+        .promotion-piece.white {
+            color: #ffffff;
+            text-shadow: 
+                2px 2px 0 #333,
+                -1px -1px 0 #333,
+                1px -1px 0 #333,
+                -1px 1px 0 #333,
+                3px 3px 6px rgba(0, 0, 0, 0.8);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+        }
+
+        .promotion-piece.black {
+            color: #1a1a1a;
+            text-shadow: 
+                1px 1px 0 #ffffff,
+                -1px -1px 0 #ffffff,
+                1px -1px 0 #ffffff,
+                -1px 1px 0 #ffffff,
+                2px 2px 4px rgba(255, 255, 255, 0.3);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
         }
 
         .promotion-piece-label {
@@ -632,25 +661,28 @@
             }
             
             .promotion-pieces {
-                grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
+                flex-wrap: wrap !important;
+                justify-content: space-around !important;
             }
             
             .promotion-piece {
                 font-size: 54px;
                 padding: 20px;
+                min-width: 100px !important;
             }
         }
 
         @media (max-width: 480px) {
             .promotion-pieces {
-                grid-template-columns: 1fr 1fr;
                 gap: 12px;
+                justify-content: space-around !important;
             }
             
             .promotion-piece {
                 font-size: 48px;
                 padding: 15px;
+                min-width: 80px !important;
             }
         }
     </style>
@@ -860,48 +892,41 @@
                         return;
                     }
 
-                    const possibleMoves = this.getPossibleMoves(this.selectedSquare.row, this.selectedSquare.col);
-                    const moveExists = possibleMoves.some(move => move.row === row && move.col === col);
+                                        const possibleMoves = this.getPossibleMoves(this.selectedSquare.row, this.selectedSquare.col);
+                    const selectedMove = possibleMoves.find(move => move.row === row && move.col === col);
                     
-                    if (moveExists) {
+                    if (selectedMove) {
                         this.makeMove(this.selectedSquare.row, this.selectedSquare.col, row, col);
-                    } else {
-                        const piece = this.board[row][col];
-                        if (piece && piece.color === this.currentPlayer) {
-                            this.selectedSquare = {row, col};
-                        } else {
-                            this.selectedSquare = null;
-                        }
-                    }
-                } else {
-                    const piece = this.board[row][col];
-                    if (piece && piece.color === this.currentPlayer) {
-                        this.selectedSquare = {row, col};
+                        return;
                     }
                 }
-                
-                this.renderBoard();
+
+                const piece = this.board[row][col];
+                if (piece && piece.color === this.currentPlayer) {
+                    this.selectedSquare = {row, col};
+                    this.renderBoard();
+                } else {
+                    this.selectedSquare = null;
+                    this.renderBoard();
+                }
             }
 
             renderBoard() {
-                const squares = document.querySelectorAll('.square');
+                this.setupBoard();
                 
-                squares.forEach(square => {
-                    square.classList.remove('selected', 'possible-move', 'capture-move');
-                });
-
                 if (this.selectedSquare) {
                     const selectedElement = document.querySelector(
                         `[data-row="${this.selectedSquare.row}"][data-col="${this.selectedSquare.col}"]`
                     );
                     if (selectedElement) {
                         selectedElement.classList.add('selected');
-                        this.showPossibleMoves(this.selectedSquare.row, this.selectedSquare.col);
                     }
+                    
+                    this.showPossibleMoves(this.selectedSquare.row, this.selectedSquare.col);
                 }
             }
 
-                        showPossibleMoves(row, col) {
+            showPossibleMoves(row, col) {
                 const moves = this.getPossibleMoves(row, col);
                 
                 moves.forEach(move => {
@@ -1601,33 +1626,85 @@
             showHint() {
                 if (this.gameOver) return;
                 
-                const possibleMoves = [];
+                let bestMove = null;
+                let bestValue = -Infinity;
                 
                 for (let row = 0; row < 8; row++) {
                     for (let col = 0; col < 8; col++) {
                         const piece = this.board[row][col];
                         if (piece && piece.color === this.currentPlayer) {
                             const moves = this.getPossibleMoves(row, col);
-                            moves.forEach(move => {
-                                possibleMoves.push({from: {row, col}, to: move});
-                            });
+                            for (let move of moves) {
+                                const value = this.evaluateMove(row, col, move.row, move.col);
+                                if (value > bestValue) {
+                                    bestValue = value;
+                                    bestMove = {from: {row, col}, to: move};
+                                }
+                            }
                         }
                     }
                 }
                 
-                if (possibleMoves.length > 0) {
-                    const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
-                    this.selectedSquare = randomMove.from;
+                if (bestMove) {
+                    this.selectedSquare = bestMove.from;
                     this.renderBoard();
                     
                     setTimeout(() => {
-                        this.selectedSquare = null;
-                        this.renderBoard();
-                    }, 3000);
+                        const hintSquare = document.querySelector(
+                            `[data-row="${bestMove.to.row}"][data-col="${bestMove.to.col}"]`
+                        );
+                        if (hintSquare) {
+                            hintSquare.style.background = '#ffeb3b';
+                            hintSquare.style.boxShadow = '0 0 20px #ffeb3b';
+                            setTimeout(() => {
+                                hintSquare.style.background = '';
+                                hintSquare.style.boxShadow = '';
+                            }, 2000);
+                        }
+                    }, 500);
                 }
             }
 
-                        unlockFirstPlayAchievement() {
+            evaluateMove(fromRow, fromCol, toRow, toCol) {
+                const piece = this.board[fromRow][fromCol];
+                const targetPiece = this.board[toRow][toCol];
+                
+                let value = 0;
+                
+                if (targetPiece) {
+                    const pieceValues = {
+                        'pawn': 1, 'knight': 3, 'bishop': 3,
+                        'rook': 5, 'queen': 9, 'king': 100
+                    };
+                    value += pieceValues[targetPiece.type];
+                }
+                
+                if (piece.type === 'pawn') {
+                    const promotionRow = piece.color === 'white' ? 7 : 0;
+                    if (toRow === promotionRow) {
+                        value += 8;
+                    }
+                }
+                
+                const originalPiece = this.board[toRow][toCol];
+                this.board[toRow][toCol] = piece;
+                this.board[fromRow][fromCol] = null;
+                
+                const opponentColor = piece.color === 'white' ? 'black' : 'white';
+                if (this.isKingInCheck(opponentColor)) {
+                    value += 5;
+                    if (this.isCheckmate(opponentColor)) {
+                        value += 1000;
+                    }
+                }
+                
+                this.board[fromRow][fromCol] = piece;
+                this.board[toRow][toCol] = originalPiece;
+                
+                return value + Math.random() * 0.1;
+            }
+
+            unlockFirstPlayAchievement() {
                 if (!localStorage.getItem(ACH_CHESS_PLAY)) {
                     setTimeout(() => {
                         this.showAchievement('首次对弈', '欢迎来到国际象棋的世界！', '🎯');
@@ -1696,5 +1773,4 @@
     </script>
 </body>
 </html>
-
 
