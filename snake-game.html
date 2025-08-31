@@ -210,7 +210,7 @@
         <div class="instructions">
             <h3>🎯 游戏说明</h3>
             <p>
-                <strong>电脑端：</strong>使用方向键 ↑↓←→ 控制蛇的移动<br>
+                <strong>电脑端：</strong>使用方向键 WSAD 控制蛇的移动<br>
                 <strong>手机端：</strong>滑动屏幕控制方向<br>
                 <strong>目标：</strong>吃到食物让蛇变长，避免撞到墙壁或自己<br>
                 <strong>提示：</strong>每吃10个食物速度会加快一些
@@ -434,22 +434,22 @@
                     if (!this.gameRunning || this.gamePaused) return;
                     
                     switch(e.key) {
-                        case 'ArrowUp':
+                        case 'w':
                             if (this.direction.y !== 1) {
                                 this.direction = {x: 0, y: -1};
                             }
                             break;
-                        case 'ArrowDown':
+                        case 's':
                             if (this.direction.y !== -1) {
                                 this.direction = {x: 0, y: 1};
                             }
                             break;
-                        case 'ArrowLeft':
+                        case 'a':
                             if (this.direction.x !== 1) {
                                 this.direction = {x: -1, y: 0};
                             }
                             break;
-                        case 'ArrowRight':
+                        case 'd':
                             if (this.direction.x !== -1) {
                                 this.direction = {x: 1, y: 0};
                             }
